@@ -1,0 +1,55 @@
+/* Grab the Ball example
+   (C) 2003-2005 by A. Bemporad */
+
+SYSTEM grab_ball {
+       
+INTERFACE {
+	STATE { REAL x [-100,100];
+		REAL xdot [-100,100];
+		REAL y1 [-500,10];
+		REAL y2 [-500,10];
+		BOOL catched1;
+		BOOL catched2;
+			}
+	INPUT { REAL u [-50,50];
+		REAL u1 [0,10];
+		REAL u2 [0,10];
+		}
+	PARAMETER { 
+	  	REAL Ts, beta, Minv, a1, a2, dist1, dist2;
+	  	REAL b, c1, c2, gamma;
+	}
+}
+IMPLEMENTATION {
+	AUX { REAL dy1,dy2;
+	      BOOL d11,d12,d21,d22,dx11,dx12,dx21,dx22;
+	}      
+	AD  { d11 = y1<=a1;
+	      d12 = y1>=a2;
+	      d21 = y2<=a1;
+	      d22 = y2>=a2;
+	      dx11= x<=dist1+b;
+	      dx12= x>=-b+dist1;
+	      dx21= x<=dist2+b;
+	      dx22= x>=-b+dist2;
+	} 
+	DA  { dy1 = {IF catched1 THEN 0 ELSE y1+Ts*(-c1+gamma*u1)};
+	      dy2 = {IF catched2 THEN 0 ELSE y2+Ts*(-c2+gamma*u2)};
+	}		      
+	CONTINUOUS { xdot=xdot+Ts*(u-beta*xdot)*Minv; 
+	             x=x+Ts*xdot;    	
+	             y1=dy1;
+	    	     y2=dy2;
+	}
+	AUTOMATA {   catched1=catched1|(d11&d12&dx11&dx12);
+	 	     catched2=catched2|(d21&d22&dx21&dx22);
+	}
+	    
+	MUST {	     catched1->catched2;
+	}
+    }
+}
+
+
+
+

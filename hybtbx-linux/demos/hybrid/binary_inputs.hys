@@ -1,0 +1,31 @@
+/* Double integrator with binary inputs
+   
+   (C) 2009 by A. Bemporad  */
+
+SYSTEM double_int_binary {
+       
+INTERFACE {
+	STATE { 
+        REAL x1 [-1000,1000];
+		REAL x2 [-1000,1000];
+		}
+	INPUT { BOOL u;
+		}
+	OUTPUT{ REAL y;
+		}
+	PARAMETER { 
+	  	REAL a11,a12,a21,a22,b1,b2,c1,c2;
+	    	}
+	}
+
+IMPLEMENTATION {
+		AUX { REAL z;}
+
+		DA  { z = {IF u THEN 1 ELSE -1};
+        }
+	    CONTINUOUS { x1 = a11*x1+a12*x2+b1*z;
+	      		     x2 = a21*x1+a22*x2+b2*z; }
+
+	    OUTPUT { y = c1*x1+c2*x2;  }
+	  }
+}

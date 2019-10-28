@@ -1,0 +1,64 @@
+Hybrid Toolbox - (C) by Alberto Bemporad 2003-2019
+http://cse.lab.imtlucca.it/~bemporad/hybrid/toolbox
+
+2019-02-07: v1.4.0 released on the web.
+2018-04-11: v1.3.9 released on the web.
+2017-05-01: v1.3.8 released on the web. Added equality constraints to MIQPSOL and support for INTLINPROG in MILPSOL.
+2016-06-23: v1.3.7 released on the web.
+2015-11-09: v1.3.6 released on the web. Handling of 'cdd' in LPSOL revised (thanks to S. Di Cairano).
+                                        Added function to convert explicit MPC loops to hybrid MLD form.
+2015-03-27: v1.3.5 released on the web. 
+2014-05-22: v1.3.4 released on the web. Support of MPC objects moved to MPC Toolbox R2014b.
+2013-31-13: v1.3.3 released on the web.
+2013-01-13: v1.3.2 released on the web.
+2012-05-11: v1.3.1 released on the web. New demo on hybrid MPC of an inverted pendulum added. Download utility for WIN64 users MEXDOWNLOAD.M added.
+2012-05-04: v1.3.0 released on the web. New solver Gurobi 5.0.0 supported.
+2012-04-20: v1.2.9 released on the web
+2011-11-07: v1.2.8 released on the web (fixed bug in expcon on @MPC object. Revised support for multiple platforms.
+            IBM Cplex 12+ fully supported)
+2011-05-31: v1.2.7 released on the web (added support for mac 64bit)
+2011-05-31: v1.2.7 released on the web (added support for mac 64bit)
+2011-03-02: v1.2.6 released on the web (added method LINCON/ONE_EXPLICIT to determine current active set and critical region)
+2010-07-15: v1.2.5 released on the web (minor fixes)
+2010-07-14: v1.2.4 released on the web (bug fixed in EXPCON for explicit @MPC objects with fixed measured disturbances)
+2010-03-05: v1.2.3 released on the web (EXPCON can store entire explicit optimal sequence for constrained linear controllers)
+2009-12-07: v1.2.2 released on the web (bug fixed in MLD and PWA Simulink blocks when signals have zero dimension)
+2009-06-18: v1.2.1 released on the web (Mato Baotic's CPLEXINT supported.
+            Mac version supported. Thanks to Edward Hartley for compiling HYSDEL for Mac).
+2009-06-02: v1.2.0 released on the web (time-varying linear models/cost/limits supported)
+2009-05-11: v1.1.13 released on the web
+2009-02-24: v1.1.12 released on the web (flag YZEROCON can be now a vector)
+2009-01-05: v1.1.11 released on the web 
+2008-10-31: v1.1.10 released on the web (NAG Toolbox for Matlab 7.x further supported)
+2008-09-13: v1.1.9 released on the web (NAG Toolbox for Matlab 7.x supported)
+2008-05-30: v1.1.8 released on the web (bug fixed with spaces in path in @MLD construction and EXPSFUN_INIT.M)
+2008-02-14: v1.1.7 released on the web 
+2007-12-22: v1.1.6 released on the web (bug fixed when @mld/private directory is not
+            writable)
+2007-09-07: v1.1.5 released on the web (1D plots supported, @MLD constructor supports
+            HYSDEL files in path but not in current directory)
+2007-06-06: v1.1.4 released on the web (LCP solver LCPSOL added, MILPSOL 
+            supports eq. constraints, bug fixed in MILPSOL related to solver 
+            'matlab' and 'linprog', bug fixed in MLD/UPDATE and PWA/UPDATE when
+            system has no input)
+2007-02-15: v1.1.3 released on the web (Time limit for @HYBCON methods added)
+2007-01-17: v1.1.2 released on the web (GETVAR fixed for binary inputs, outputs, states) 
+2006-11-15: v1.1.1 released on the web (fix for UNIX/LINUX platforms in @MLD) 
+2006-10-09: v1.1.0 released on the web (GLPK 4.11 used as default for MILP on PCWIN platforms, 
+            patch transparency activated as default, function POLYPLOT3D added for 3D plot support)
+2006-09-28: v1.0.15 released on the web (PWA S-function updated to handle direct feedthrough)
+2006-09-09: v1.0.14 released on the web (constraints on y(k) can be now also handled for k=0)
+2006-05-31: v1.0.13 released on the web (minor problem with spaces in path fixed)
+2006-02-23: v1.0.12 released on the web.
+2006-02-23: EXPCON/GET_GAIN.M extended to handle multiple PWA partitions
+2005-12-05: More demos added (HYB_INTEGRAL_ACTION, HYB_MEAS_DIST, SUPPLY_CHAIN)
+2005-09-20: Reachability analysis for MLD systems extended (@MLD/REACH.M)
+2005-09-20: Reachability analysis for MLD systems extended (@MLD/REACH.M)
+2005-05-03: Changed fields in @EXPCON object, some moved to 'info' field.
+2005-04-11: Bug fixed in MLDSFUN 
+2005-01-16: glpkmex updated to v0.6.6 (GLPK v4.8) 
+2005-01-10: Reachability analysis for MLD systems based on MILP added.
+2005-01-04: v1.0.7 released on the web.
+2004-11-12: C-code for explicit hybrid MPC based on 2-norm added 
+2004-10-15: v1.0.6 released on the web (first public release).
+ 

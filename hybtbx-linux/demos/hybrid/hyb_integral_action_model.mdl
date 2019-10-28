@@ -1,0 +1,578 @@
+Model {
+  Name			  "hyb_integral_action_model"
+  Version		  5.0
+  SaveDefaultBlockParams  on
+  SampleTimeColors	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ExecutionOrder	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  Created		  "Sun Dec 04 11:18:18 2005"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "Alberto Bemporad"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Mon Dec 05 10:16:24 2005"
+  ModelVersionFormat	  "1.%<AutoIncrement:23>"
+  ConfigurationManager	  "None"
+  SimParamPage		  "Solver"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  RTWExpressionDepthLimit 5
+  SimulationMode	  "normal"
+  Solver		  "ode45"
+  SolverMode		  "Auto"
+  StartTime		  "0.0"
+  StopTime		  "10.0"
+  MaxOrder		  5
+  MaxStep		  "auto"
+  MinStep		  "auto"
+  MaxNumMinSteps	  "-1"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  RelTol		  "1e-3"
+  AbsTol		  "auto"
+  OutputOption		  "RefineOutputTimes"
+  OutputTimes		  "[]"
+  Refine		  "1"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveTime		  on
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  on
+  OutputSaveName	  "yout"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  SaveFormat		  "Array"
+  Decimation		  "1"
+  LimitDataPoints	  on
+  MaxDataPoints		  "1000"
+  SignalLoggingName	  "sigsOut"
+  ConsistencyChecking	  "none"
+  ArrayBoundsChecking	  "none"
+  AlgebraicLoopMsg	  "warning"
+  BlockPriorityViolationMsg "warning"
+  MinStepSizeMsg	  "warning"
+  InheritedTsInSrcMsg	  "warning"
+  DiscreteInheritContinuousMsg "warning"
+  MultiTaskRateTransMsg	  "error"
+  SingleTaskRateTransMsg  "none"
+  CheckForMatrixSingularity "none"
+  IntegerOverflowMsg	  "warning"
+  Int32ToFloatConvMsg	  "warning"
+  ParameterDowncastMsg	  "error"
+  ParameterOverflowMsg	  "error"
+  ParameterPrecisionLossMsg "warning"
+  UnderSpecifiedDataTypeMsg "none"
+  UnnecessaryDatatypeConvMsg "none"
+  VectorMatrixConversionMsg "none"
+  InvalidFcnCallConnMsg	  "error"
+  SignalLabelMismatchMsg  "none"
+  UnconnectedInputMsg	  "warning"
+  UnconnectedOutputMsg	  "warning"
+  UnconnectedLineMsg	  "warning"
+  SfunCompatibilityCheckMsg "none"
+  RTWInlineParameters	  off
+  BlockReductionOpt	  on
+  BooleanDataType	  on
+  ConditionallyExecuteInputs on
+  ParameterPooling	  on
+  OptimizeBlockIOStorage  on
+  ZeroCross		  on
+  AssertionControl	  "UseLocalSettings"
+  ProdHWDeviceType	  "Microprocessor"
+  ProdHWWordLengths	  "8,16,32,32"
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWTemplateMakefile	  "grt_default_tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  RTWRetainRTWFile	  off
+  TLCProfiler		  off
+  TLCDebug		  off
+  TLCCoverage		  off
+  TLCAssertion		  off
+  RTWOptions		  "-aEnforceIntegerDowncast=1 -aFoldNonRolledExpr=1 -a"
+"InlineInvariantSignals=0 -aInlineParameters=0 -aLocalBlockOutputs=1 -aRollThr"
+"eshold=5 -aGenerateReport=0 -aGenCodeOnly=0 -aRTWVerbose=1 -aIncludeHyperlink"
+"InReport=0 -aLaunchReport=0 -aForceParamTrailComments=0 -aGenerateComments=1 "
+"-aIgnoreCustomStorageClasses=1 -aIncHierarchyInIds=0 -aMaxRTWIdLen=31 -aShowE"
+"liminatedStatements=0 -aPrefixModelToSubsysFcnNames=1 -aIncDataTypeInIds=0 -a"
+"InsertBlockDesc=0 -aSimulinkBlockComments=1 -aInlinedPrmAccess=\"Literals\"  "
+"-aSuppressErrorStatus=0 -aModelReferenceCompliant=1 -aSupportNonInlinedSFcns="
+"1 -aSupportContinuousTime=1 -aSupportComplex=1 -aSupportNonFinite=1 -aSupport"
+"AbsoluteTime=1 -aTargetPreCompLibLocation=\"\" -aTargetLibSuffix=\"\" -aTarge"
+"tFcnLib=\"ansi_tfl_tmw.mat\" -aMultiInstanceERTCode=0 -aLogVarNameModifier=\""
+"rt_\" -aIsPILTarget=0 -aCombineOutputUpdateFcns=0 -aGenerateASAP2=0 -aGenerat"
+"eSampleERTMain=0 -aGenerateFullHeader=1 -aUtilityFuncGeneration=\"Auto\" -aIn"
+"cludeFileDelimiter=\"Auto\" -aIncludeMdlTerminateFcn=1 -aPurelyIntegerCode=0 "
+"-aERTCustomFileBanners=0 -aRTWCAPIStates=0 -aRTWCAPIParams=0 -aRTWCAPISignals"
+"=0 -aMatFileLogging=1 -aGenFloatMathFcnCalls=\"ANSI_C\" -aExtModeMexFile=\"ex"
+"t_comm\" -aExtModeTransport=0 -aExtModeStaticAllocSize=1000000 -aExtModeTesti"
+"ng=0 -aExtModeStaticAlloc=0 -aExtMode=0  "
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      Fcn
+      Expr		      "sin(u[1])"
+    }
+    Block {
+      BlockType		      Ground
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      ShowAdditionalParam     off
+      LatchInput	      off
+      DataType		      "auto"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Integrator
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Scope
+      Floating		      off
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      PortCounts	      "[]"
+      SFunctionModules	      "''"
+    }
+    Block {
+      BlockType		      Step
+      Time		      "1"
+      Before		      "0"
+      After		      "1"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+      ZeroCross		      on
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      on
+      Permissions	      "ReadWrite"
+      RTWSystemCode	      "Auto"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      ShowAdditionalParam     off
+      InputSameDT	      on
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  LineDefaults {
+    FontName		    "arial"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  System {
+    Name		    "hyb_integral_action_model"
+    Location		    [54, 118, 686, 485]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "A4"
+    PaperUnits		    "centimeters"
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      Scope
+      Name		      "1: output & ref,\n2: input"
+      Ports		      [2]
+      Position		      [575, 56, 605, 89]
+      Location		      [695, 97, 1019, 515]
+      Open		      on
+      NumInputPorts	      "2"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+	axes2			"%<SignalLabel>"
+      }
+      List {
+	ListType		SelectedSignals
+	axes1			""
+	axes2			""
+      }
+      TimeRange		      "10"
+      YMin		      "0~0"
+      YMax		      "1.5~2.5"
+      DataFormat	      "StructureWithTime"
+    }
+    Block {
+      BlockType		      Fcn
+      Name		      "Fcn"
+      Position		      [330, 35, 360, 65]
+      Expr		      "1-cos(u(1))"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Hybrid MPC Controller"
+      Ports		      [5, 1]
+      Position		      [190, 201, 270, 299]
+      Orientation	      "left"
+      SourceBlock	      "hyblib/Hybrid Controller"
+      SourceType	      "Control of hybrid systems based on MIP"
+      C			      "HybMPC"
+      S			      "extended_plant"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Hybrid System"
+      Ports		      [1, 4]
+      Position		      [190, 14, 270, 111]
+      SourceBlock	      "hyblib/Hybrid MLD System"
+      SourceType	      "Hybrid MLD dynamics (open-loop)"
+      S			      "plant"
+      x0init		      "x0"
+    }
+    Block {
+      BlockType		      Ground
+      Name		      "error integral \nref."
+      Position		      [325, 240, 345, 260]
+      Orientation	      "left"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "extended\nstate"
+      Ports		      [1]
+      Position		      [240, 139, 265, 161]
+      Orientation	      "left"
+      Location		      [695, 523, 1019, 762]
+      Open		      on
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		SelectedSignals
+	axes1			""
+      }
+      SaveName		      "ScopeData3"
+      DataFormat	      "StructureWithTime"
+    }
+    Block {
+      BlockType		      Integrator
+      Name		      "integrator"
+      Ports		      [1, 1]
+      Position		      [375, 132, 400, 168]
+      Orientation	      "left"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "mux"
+      Ports		      [3, 1]
+      Position		      [340, 96, 345, 204]
+      Orientation	      "left"
+      Inputs		      "3"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "mux1"
+      Ports		      [2, 1]
+      Position		      [525, 39, 530, 86]
+      ForegroundColor	      "gray"
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "reference"
+      Position		      [505, 143, 530, 167]
+      Orientation	      "left"
+      ForegroundColor	      "red"
+      Time		      "0"
+    }
+    Block {
+      BlockType		      Sum
+      Name		      "sum"
+      Ports		      [2, 1]
+      Position		      [430, 140, 450, 160]
+      Orientation	      "left"
+      Inputs		      "-+"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "switch"
+      Ports		      [1]
+      Position		      [290, 62, 310, 88]
+      Location		      [188, 365, 512, 604]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      SaveName		      "ScopeData1"
+      DataFormat	      "StructureWithTime"
+    }
+    Line {
+      SrcBlock		      "Hybrid MPC Controller"
+      SrcPort		      1
+      Points		      [-80, 0]
+      Branch {
+	Points			[0, -185]
+	DstBlock		"Hybrid System"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 75; 445, 0; 0, -245]
+	DstBlock		"1: output & ref,\n2: input"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "sum"
+      SrcPort		      1
+      DstBlock		      "integrator"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "reference"
+      SrcPort		      1
+      Points		      [-20, 0]
+      Branch {
+	DstBlock		"sum"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 30]
+	Branch {
+	  Points		  [0, 45]
+	  DstBlock		  "Hybrid MPC Controller"
+	  DstPort		  2
+	}
+	Branch {
+	  DstBlock		  "mux"
+	  DstPort		  3
+	}
+      }
+      Branch {
+	Points			[0, -80]
+	DstBlock		"mux1"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "Hybrid System"
+      SrcPort		      2
+      DstBlock		      "Fcn"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "mux"
+      SrcPort		      1
+      Points		      [-40, 0]
+      Branch {
+	Points			[0, 60]
+	DstBlock		"Hybrid MPC Controller"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"extended\nstate"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Hybrid System"
+      SrcPort		      1
+      Points		      [100, 0; 0, 90]
+      DstBlock		      "mux"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "integrator"
+      SrcPort		      1
+      DstBlock		      "mux"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "mux1"
+      SrcPort		      1
+      DstBlock		      "1: output & ref,\n2: input"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Hybrid System"
+      SrcPort		      3
+      DstBlock		      "switch"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Fcn"
+      SrcPort		      1
+      Points		      [100, 0]
+      Branch {
+	DstBlock		"sum"
+	DstPort			1
+      }
+      Branch {
+	DstBlock		"mux1"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "error integral \nref."
+      SrcPort		      1
+      DstBlock		      "Hybrid MPC Controller"
+      DstPort		      3
+    }
+    Annotation {
+      Name		      "state"
+      Position		      [297, 18]
+    }
+    Annotation {
+      Name		      "output"
+      Position		      [302, 43]
+    }
+    Annotation {
+      Name		      "input"
+      Position		      [142, 53]
+    }
+    Annotation {
+      Name		      "eps"
+      Position		      [362, 138]
+    }
+  }
+}

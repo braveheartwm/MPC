@@ -1,0 +1,32 @@
+/* Plant model (open-loop) to demonstrate the effect of integral action
+
+   (C) 2005 by A. Bemporad, Dec. 12, 2005 */
+
+SYSTEM open_loop {
+       
+INTERFACE {
+	STATE { REAL x1 [-10,10];
+		REAL x2 [-10,10];
+		}
+	INPUT { REAL u [-1e3,1e3];
+		}
+	OUTPUT{ REAL y;
+		}
+	}
+
+IMPLEMENTATION {
+		AUX { REAL z1,z2; 
+		      BOOL switch; }
+		AD  { switch = x1+x2<=0; } 
+
+		DA  { z1 = {IF switch THEN .5*x1-.1*x2+u
+		            ELSE .54-.004*x2+u };
+		      z2 = {IF switch THEN .5*x1
+		            ELSE .25*x1};  }
+		      
+	    CONTINUOUS { x1 = z1;
+	      		 x2 = z2; }
+
+	    OUTPUT { y = x1-x2;  }
+	  }
+}

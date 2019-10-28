@@ -1,0 +1,49 @@
+/* Bouncing Ball
+
+   (C) 2003 by A. Bemporad
+   
+ */
+
+SYSTEM bouncing_ball{
+INTERFACE {
+/* Description of variables and constants */
+
+        STATE {
+                REAL height   [-10,10];
+                REAL velocity [-100,100];
+        }
+
+        PARAMETER {
+                REAL g;
+                REAL alpha;  /* 0=elastic, 1=completely anelastic */
+                REAL Ts;
+        }
+}
+
+IMPLEMENTATION {
+        AUX {
+                REAL hnext;
+                REAL vnext;
+                BOOL negative;
+        }
+
+        AD {
+                negative = height <= 0;
+        }
+        DA {
+                hnext = {
+                        IF negative THEN height-Ts*velocity 
+                        ELSE height+Ts*velocity-Ts*Ts*g
+                };
+                vnext = {
+                        IF negative THEN -(1-alpha)*velocity 
+                        ELSE velocity-Ts*g
+                };
+        }
+        CONTINUOUS {
+                height = hnext;
+                velocity = vnext;
+        }
+
+    }
+}

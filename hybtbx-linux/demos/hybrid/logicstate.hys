@@ -1,0 +1,29 @@
+/* PWA system  w/ logic state 
+
+   (C) 2003 by A. Bemporad */
+
+SYSTEM logicstate {
+       
+INTERFACE {
+	STATE { REAL x1 [-10,10];
+			BOOL x2;
+		}
+	INPUT { REAL u [-1,1];
+		}
+	}
+
+IMPLEMENTATION {
+		AUX { REAL z1; 
+		      BOOL sign; }
+		AD  { sign = x1<=0; } 
+
+		DA  { z1 = {IF sign | x2 THEN 0.1*x1
+		            ELSE -0.3*x1 };
+            }
+		      
+	    CONTINUOUS { x1 = z1+u; }
+	    
+	    AUTOMATA {x2 = x2 & sign; }
+	    
+	  }
+}

@@ -1,0 +1,33 @@
+/* (C) 2003 by A. Bemporad, Siena, September 30, 2003 */
+
+SYSTEM hybrid4 {
+       
+INTERFACE {
+	STATE { 
+		REAL x1 [-10,10];
+		REAL x2 [-10,10];}
+	INPUT { 
+		REAL u2 [-2,2];
+		BOOL u1;
+		}	
+}
+IMPLEMENTATION {
+		AUX {REAL z1,z2;
+		     BOOL d1,d2; }
+		    
+		AD {
+			d1 = x1<=-.5;
+			d2 = x2>=.3;
+			}
+		DA {	z1 = {IF u1|d1 THEN .5*u2};
+		        z2 = {IF d2&~d1 THEN .8*u2}; 
+		   }  
+		    
+		CONTINUOUS { x1 = -.8*x1+.5*x2+z1;
+	      		     x2 = z2;
+	      		    }
+				   
+		MUST   {  u1 | d1; } 	
+    }
+}
+

@@ -1,0 +1,45 @@
+/* Heat and Cool example
+
+  (C) 2003 by A. Bemporad */
+
+SYSTEM heatcool {
+       
+INTERFACE {
+	STATE { REAL T1 [-10,50];
+		    REAL T2 [-10,50];
+		}
+	INPUT { REAL Tamb [-10,50];
+		}
+	OUTPUT {REAL y1;
+	        REAL y2;}
+	
+	PARAMETER { 
+	  	REAL Ts, alpha1, alpha2, k1, k2;
+	  	REAL Thot1, Tcold1, Thot2, Tcold2, Uc, Uh;
+	}
+	
+}
+IMPLEMENTATION {
+		AUX { REAL uhot, ucold; 
+		      BOOL hot1, hot2, cold1, cold2; 
+		}      
+		AD  { hot1 = T1>=Thot1; 
+		      hot2 = T2>=Thot2; 
+		      cold1 = T1<=Tcold1; 
+		      cold2 = T2<=Tcold2; 
+		} 
+		DA  { uhot = {IF cold1 | (cold2 & ~hot1) THEN Uh ELSE 0};
+              ucold = {IF hot1 | (hot2 & ~cold1) THEN Uc ELSE 0};
+		}		      
+	    CONTINUOUS { T1 = T1+Ts*(-alpha1*(T1-Tamb)+k1*(uhot-ucold)); 
+	      		     T2 = T2+Ts*(-alpha2*(T2-Tamb)+k2*(uhot-ucold)); 
+	    }
+	    OUTPUT {y1=T1;
+	            y2=T2;
+	    }
+	}
+}
+
+
+
+

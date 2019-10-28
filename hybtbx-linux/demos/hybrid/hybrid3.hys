@@ -1,0 +1,37 @@
+/* PWA system  w/ logic states and outputs 
+
+   (C) 2003 by A. Bemporad */
+
+SYSTEM hybrid3 {
+       
+INTERFACE {
+	STATE { REAL x1 [-10,10];
+			BOOL x2;
+		}
+	INPUT { REAL u1 [-1,1];
+	        BOOL u2;
+		}
+	OUTPUT {REAL y1;
+	        BOOL y2;
+	}
+}
+
+IMPLEMENTATION {
+		AUX { REAL z1; 
+		      BOOL sign; }
+		      
+		AD  { sign = x1<=0; } 
+
+		DA  { z1 = {IF sign | x2 THEN .9*x1
+		            ELSE -.3*x1 };
+            }
+		      
+	    CONTINUOUS { x1 = z1+u1; }
+	    
+	    AUTOMATA {x2 = x2 & sign | u2;}
+
+        OUTPUT {y1 = 2*x1;
+                y2 = x2 & u2;
+        }	    
+	  }
+}

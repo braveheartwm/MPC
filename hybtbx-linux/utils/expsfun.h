@@ -1,0 +1,14 @@
+#include "expcon.c"
+#define EXPCONSFUN_NREFS 1
+#define EXPCONSFUN_NRX 0
+#define EXPCONSFUN_NRY 1
+#define EXPCONSFUN_NRU 0
+#define EXPCONSFUN_NU 1
+#define EXPCONSFUN_TS 1
+#define EXPCONSFUN_NYM 2
+#define EXPCONSFUN_NINPUTS 5
+#define EXPCONSFUN_NO_REF 0
+#define EXPCONSFUN_NO_REFX 1
+#define EXPCONSFUN_NO_REFU 1
+
+

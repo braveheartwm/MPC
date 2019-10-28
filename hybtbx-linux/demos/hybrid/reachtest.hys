@@ -1,0 +1,59 @@
+/* Test example for reachability analysis
+
+   (C) 2004 by A. Bemporad */
+
+SYSTEM reachtest {
+       
+INTERFACE {
+	STATE { 
+		REAL x1 [-10,10];
+		REAL x2 [-5,5];
+		REAL x3 [-20,20];
+		BOOL x4;
+		BOOL x5;
+		}
+	INPUT { 
+		REAL u1 [-1,1];
+		REAL u2 [-2,2];
+		BOOL u3;
+		}
+	}
+
+IMPLEMENTATION {
+		AUX { 
+			REAL z1,z2,z3; 
+		      	BOOL d1,d2,d3; 
+		      	}
+		AD  { 
+			d1 = x1<=0; 
+			d2 = x2>=1; 
+			d3 = x3-x2<=1; 
+			} 
+
+		DA  { 
+			z1 = {IF d1&d2 | x4 THEN 0.1*x1+0.5*x2
+		            ELSE -0.3*x3-x1+u1 };
+			z2 = {IF d3 | x5 THEN -0.8*x1+0.7*x3-u1-u2
+		            ELSE -0.7*x1-2*x2 };
+			z3 = {IF d3&x5 | x4&d1 THEN -0.1*x3+u2
+		            ELSE x3-.5*x1-2*u1 };
+            	}
+		      
+	    	CONTINUOUS { 
+	    		x1 = z1; 
+	    		x2 = z2; 
+	    		x3 = z3; 
+	    	}
+	    
+	    	AUTOMATA {
+	    		x4 = x4 & d1; 
+	    		x5 = ((x4 | x5) & (d1 | d2)) | d3 & u3; 
+	    	}
+	    	MUST { /* Reach. analysis query with the linear constraint x3+x2<=0 
+	    		  and the logic constraints d1|d2|x5 and ~x4|x5 satisfied */
+	  		x3+x2<=0; 
+	    		d1|d2|x5;
+	    		~x4|x5; 
+	    		}
+	  }
+}

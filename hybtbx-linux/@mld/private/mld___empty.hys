@@ -1,0 +1,20 @@
+/* Empty HYSDEL model for defining empty MLD objects
+ 
+   Author: Alberto Bemporad, May 12, 2004
+ */
+
+SYSTEM empty{
+   INTERFACE{
+      STATE{
+         REAL x [-1, 1];         
+      }
+      INPUT{
+         REAL u [-1,1];
+      }
+   }
+   IMPLEMENTATION{
+      CONTINUOUS{
+         x=x+u;
+      }
+   }
+}

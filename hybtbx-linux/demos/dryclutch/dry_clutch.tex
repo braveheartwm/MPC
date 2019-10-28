@@ -1,0 +1,42 @@
+%(C) 2003 by A. Bemporad
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\newcommand{\ba}[1]{\begin{array}{#1}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\smallnum}[1]{\begin{smallmatrix}#1 \end{smallmatrix}}
+\newcommand{\smallmat}[1]{\left[ \begin{smallmatrix}#1 \end{smallmatrix} \right]}
+
+\textwidth 18cm
+\textheight 24cm
+\topmargin -1cm
+\oddsidemargin -2cm
+\renewcommand{\baselinestretch}{1.2}
+
+
+\begin{document}
+
+\title{\bf Piecewise Affine Controller Structure}
+
+\author{Author's Name}
+
+\maketitle
+
+The solution is
+\vspace{1cm}
+\[ 
+u(\theta) = \left\{\ba{lcll}
+\smallmat{-0.003786 &  0.5396 &  0.1703 & 0.006058 & 0.04411 & -0.02101 &       0 & -0.5409}
+ \theta& \mbox{if} &  
+ \smallmat{-4.732e-05 & 0.006745 & 0.002129 & 7.572e-05 & 0.0005513 & -0.0002626 &       0 & -0.006762\\ 
+0.003786 & -0.5396 & -0.1703 & -0.006058 & -0.04411 & 0.02101 &      -0 &  0.5409} \theta \leq \smallmat{      1 & \\ 
+      0 & } \\
+ & &\ \mbox{(Region \#1)}\\ \\ 
+\smallnum{      80}& \mbox{if} &  
+ \smallmat{4.732e-05 & -0.006745 & -0.002129 & -7.572e-05 & -0.0005513 & 0.0002626 &       0 & 0.006762} \theta \leq \smallmat{     -1 & } \\
+ & &\ \mbox{(Region \#2)}\\ \\ 
+\smallnum{       0}& \mbox{if} &  
+ \smallmat{-0.003786 &  0.5396 &  0.1703 & 0.006058 & 0.04411 & -0.02101 &       0 & -0.5409} \theta \leq \smallmat{      0 & } \\
+ & &\ \mbox{(Region \#3)}\\ \\ 
+\ea\right.
+ \] 
+\end{document} 

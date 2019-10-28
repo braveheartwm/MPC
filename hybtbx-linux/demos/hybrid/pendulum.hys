@@ -1,0 +1,44 @@
+/* Hybrid model of a pendulum
+   
+   (C) 2012 by A. Bemporad, April 2012 */
+
+SYSTEM hyb_pendulum {
+       
+INTERFACE {
+    STATE { 
+        REAL th    [-2*pi,2*pi];
+        REAL thdot [-20,20];     }
+    INPUT { 
+        REAL u [-11,11];         }
+    OUTPUT{ 
+        REAL y;                  }
+    PARAMETER { 
+        REAL tau_min,alpha,gamma;
+        REAL a11,a12,a21,a22,b11,b12,b21,b22; }
+}
+
+IMPLEMENTATION {
+    AUX { 
+        REAL tauA,s3,s4; 
+        BOOL d1,d2,d3,d4;        }
+    AD { 
+        d1 = u<=tau_min; 
+        d2 = u>=-tau_min;
+        d3 = th <= -0.5*pi;
+        d4 = th >= 0.5*pi;       } 
+    DA  { 
+        tauA = {IF d1 & d2 THEN u ELSE 0};
+        s3 = {IF d3 THEN -2*alpha*th-gamma ELSE 0};
+        s4 = {IF d4 THEN -2*alpha*th+gamma ELSE 0}; }
+		      
+    CONTINUOUS { 
+        th    = a11*th+a12*thdot+b11*(s3+s4)+b12*(u-tauA);
+        thdot = a21*th+a22*thdot+b21*(s3+s4)+b22*(u-tauA);  }
+
+    OUTPUT { 
+        y = th;  }
+    MUST {
+        d4->~d3;
+        ~d1->d2; }
+  }
+}

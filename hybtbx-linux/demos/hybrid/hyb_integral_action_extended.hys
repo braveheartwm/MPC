@@ -1,0 +1,40 @@
+/* Plant model (open-loop) with integral action
+
+   (C) 2005 by A. Bemporad, Dec. 12, 2005 */
+
+SYSTEM extended_open_loop {
+       
+INTERFACE {
+	STATE { REAL x1 [-10,10];
+		REAL x2 [-10,10];
+		REAL epsilon [-1e3, 1e3];  /* error integral */
+                REAL r [-10,10];           /* output reference */
+		}
+	INPUT { REAL u [-1e3,1e3];
+		}
+	OUTPUT{ REAL y;
+		}
+	PARAMETER { 
+    		REAL Ts; /* sampling time */ 
+	}
+}
+
+IMPLEMENTATION {
+		AUX { REAL z1,z2; 
+		      BOOL switch; }
+		AD  { switch = x1+x2<=0; } 
+
+		DA  { z1 = {IF switch THEN .5*x1-.1*x2+u
+		            ELSE .54-.004*x2+u };
+		      z2 = {IF switch THEN .5*x1
+		            ELSE .25*x1};  }
+		      
+	    CONTINUOUS { x1 = z1;
+	      		 x2 = z2;          
+	      		 epsilon=epsilon+Ts*(r-(x1-x2));
+	      		 r=r;
+		}
+
+	    OUTPUT { y = x1-x2;  }
+	  }
+}

@@ -1,0 +1,45 @@
+To install the toolbox, you should follow the following procedure:
+
+- Extract the zip file to a directory with writing permissions
+
+- Run MATLAB
+
+- Add the directory and the /utils folder to $MATLABPATH.
+  (Go to the menu FILE/SET PATH from the MATLAB Command Window, and then PATH/ADD TO PATH 
+   from the Path Browser window)
+
+Make sure that the \utils directory has write permissions and that the
+.h and .dll files are not read-only.
+
+Make also sure that the HYSDEL executable in @mld/private/ has execution permissions.
+
+A user's guide is available in PDF in the /manual subdirectory.
+Several demos are in the /demos directory.
+
+To be able to generate mex files you should have a C-compiler 
+compatible with MATLAB (e.g. Microsoft Visual C++ 6.0 TM, or the free
+compiler and mex interface MINGW/GNUMEX).
+
+The software is compatible with MATLAB >= R2009a. Some functions do not work on earlier versions of MATLAB.
+
+The Model Predictive Control Toolbox for MATLAB should be installed for
+using certain parts of the Hybrid Toolbox.
+
+If you plan to use Ilog CPLEX with version <=11.2 with the Hybrid Toolbox, you should 
+copy ..\ILOG\CPLEX91\BIN\X86_WIN32\CPLEX91.DLL in a visible 
+path (e.g.: C:\WINDOWS\SYSTEM32). The precompiled mex file CPLEXMEX.DLL 
+was compiled for CPLEX 9.1. If you have an earlier version of Cplex,
+try renaming CPLEXxx.DLL to CPLEX91.DLL. If you plan to use CPLEX through the CPLEXINT mex interface, you should probably 
+do the same and rename CPLEXxx.DLL into CPLEX112.DLL, which is the version CPLEXINT 
+was compiled for. No issue if you are using IBM CPLEX version >12.0, whose installation comes with a MATLAB interface.
+
+A free academic license to use the MILP/MIQP solver of Gurobi (very efficient for hybrid MPC) can be downloaded from http://www.gurobi.com. 
+
+----------
+For WIN64 users: some additional files must be downloaded. To do this, after you install the toolbox download required mex files from
+
+http://cse.lab.imtlucca.it/~bemporad/hybrid/toolbox/files/win64mex/
+
+(mex compiled for R2012a should also work in later versions of MATLAB)
+
+Some users reported that Windows SDK must be installed to have mex files working successfully.

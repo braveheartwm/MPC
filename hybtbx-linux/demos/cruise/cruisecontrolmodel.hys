@@ -1,0 +1,156 @@
+/* CAR model  - Renault Clio 1900, Quattroruote Aug 2000, p. 96 */
+
+SYSTEM cruisecontrolmodel {
+       
+INTERFACE {
+    PARAMETER { 
+        REAL mass = 1020; /* kg */
+        REAL beta_friction = 25; /* W/m*s */
+        REAL Rgear1 = 3.7271; 
+        REAL Rgear2 = 2.048; 
+        REAL Rgear3 = 1.321; 
+        REAL Rgear4 = 0.971; 
+        REAL Rgear5 = 0.756; 
+        REAL RgearR = -3.545;
+        
+        REAL wheel_rim = 14;        /* in */
+        REAL tire_width = 175;      /* mm */
+        REAL tire_height_perc = 65; /* % */
+        REAL R_final = 3.294;      
+        REAL loss = 0.925; /* correction term for losses */
+        
+        REAL pi = 3.1415; REAL inch = 2.54;
+        
+        /* wheel radius: */
+        REAL wheel_radius = (wheel_rim/2 * inch + (tire_width/10) * (tire_height_perc/100)) /100;
+
+        /* speed=speed_factor*w_engine/Rgear */
+        REAL speed_factor = loss /R_final * wheel_radius;
+
+        REAL max_brake = 8.53; /* max acceleration (m/s^2) */
+        REAL max_brake_force = mass*max_brake; /* max braking force (with ABS) */
+                
+        REAL Ts    = 0.5; /* sampling time, seconds */
+        REAL Cmax  = 200; /* Upperbound to torque (Nm) */
+        REAL Cmin  = -200; /* Lowerbound to torque (Nm) */
+        REAL vmax  = 220*1000/3600; /* max velocity (m/s) (for better results, one should give a vmax for each gear */
+        REAL vmin  =-50*1000/3600; /* Because of sampling time, v might get negative */
+        REAL wemin = -100*2*pi/60; /* min engine speed (rad/s) it's negative to allow errors due to sampling time */
+        REAL wemax = 6000*2*pi/60; /* max engine speed (rad/s) */
+        
+        
+        /* torque nonlinearity: C(w)=aPWL(i)+bPWL(i)*w, w\in\[wPWL(i),wPWL(i+1)] rad/s */
+        REAL aPWL1 = 0.0000;   REAL aPWL2 = 58.1070; 
+        REAL aPWL3 = 151.7613; REAL aPWL4 =192.8526; REAL aPWL5=259.9484;
+        REAL bPWL1 = 1.3281;   REAL bPWL2 = 0.6344; 
+        REAL bPWL3 =  0.0755;  REAL bPWL4 = -0.0880; REAL bPWL5=-0.2883;
+        
+        /* breakpoints */
+        REAL wPWL1 = 83.7733;  REAL wPWL2 =  167.5467; 
+        REAL wPWL3 = 251.3200; REAL wPWL4=335.0933;
+        
+        /* Engine brake torque */
+        REAL alpha1 = 10;
+        REAL beta1 = 0.3;
+            }
+        
+    STATE {
+        REAL position [0,10000];
+        REAL speed [vmin,vmax];
+        }
+
+    INPUT {
+        REAL torque [Cmin,Cmax];
+        REAL F_brake [0,max_brake_force];
+        BOOL gear1, gear2, gear3, gear4, gear5, gearR;  
+        }
+
+    }
+
+IMPLEMENTATION {
+    AUX {REAL F, Fe1, Fe2, Fe3, Fe4, Fe5, FeR;
+         REAL w, w1, w2, w3, w4, w5, wR;
+         BOOL dPWL1,dPWL2,dPWL3,dPWL4;
+         REAL DCe1,DCe2,DCe3,DCe4;
+         /*BOOL usebrakes, usegas; */
+         }
+
+
+    LINEAR {F = Fe1+Fe2+Fe3+Fe4+Fe5+FeR;
+            w = w1+w2+w3+w4+w5+wR; }
+
+    AD { dPWL1 = wPWL1-w<=0; 
+         dPWL2 = wPWL2-w<=0; 
+         dPWL3 = wPWL3-w<=0; 
+         dPWL4 = wPWL4-w<=0;
+         /* usebrakes = F_brake>=1;
+         usegas = torque>=1; */
+         } 
+
+    DA { Fe1 = {IF gear1  THEN torque/speed_factor*Rgear1};
+         Fe2 = {IF gear2  THEN torque/speed_factor*Rgear2}; 
+         Fe3 = {IF gear3  THEN torque/speed_factor*Rgear3};
+         Fe4 = {IF gear4  THEN torque/speed_factor*Rgear4}; 
+         Fe5 = {IF gear5  THEN torque/speed_factor*Rgear5}; 
+         FeR = {IF gearR  THEN torque/speed_factor*RgearR};
+                      
+         w1 = {IF gear1  THEN speed/speed_factor*Rgear1};  
+         w2 = {IF gear2  THEN speed/speed_factor*Rgear2}; 
+         w3 = {IF gear3  THEN speed/speed_factor*Rgear3}; 
+         w4 = {IF gear4  THEN speed/speed_factor*Rgear4}; 
+         w5 = {IF gear5  THEN speed/speed_factor*Rgear5}; 
+         wR = {IF gearR  THEN speed/speed_factor*RgearR}; 
+            
+         DCe1 = {IF dPWL1 THEN (aPWL2-aPWL1)+(bPWL2-bPWL1)*w};
+         DCe2 = {IF dPWL2 THEN (aPWL3-aPWL2)+(bPWL3-bPWL2)*w};
+         DCe3 = {IF dPWL3 THEN (aPWL4-aPWL3)+(bPWL4-bPWL3)*w};
+         DCe4 = {IF dPWL4 THEN (aPWL5-aPWL4)+(bPWL5-bPWL4)*w};
+    }  
+            
+    CONTINUOUS { position = position+Ts*speed;
+                 speed = speed+Ts/mass*(F-F_brake-beta_friction*speed);
+                  
+                  /* we assume F_friction=beta_friction*speed, 
+                     neglecting stiction, etc. */ } 
+ 
+    MUST {  /* max engine speed */
+            /* wemin <= w1+w2+w3+w4+w5+wR <= wemax */
+                
+        -w1 <= -wemin;
+        w1 <= wemax;
+        -w2 <= -wemin;
+        w2 <= wemax;
+        -w3 <= -wemin;
+        w3 <= wemax;
+        -w4 <= -wemin;
+        w4 <= wemax;
+        -w5 <= -wemin;
+        w5 <= wemax;
+        -wR <= -wemin;
+        wR <= wemax;
+                
+        -F_brake <=0; /* brakes cannot accelerate ! */
+        F_brake <= max_brake_force;
+                
+        /* Commanded torque between Cb(we) and Ce(we)+small tolerance 
+           otherwise the car doesn't move from rest) */
+        -torque-(alpha1+beta1*w) <=0;
+        torque-(aPWL1+bPWL1*w+DCe1+DCe2+DCe3+DCe4)-1<=0;
+                
+        /* xor(gear1,gear2,gear3,gear4,gear5,gearR)=TRUE; */
+                
+        -((REAL gear1)+(REAL gear2)+(REAL gear3)+(REAL gear4)+(REAL gear5)+(REAL gearR))<=-0.9999;
+        (REAL gear1)+(REAL gear2)+(REAL gear3)+(REAL gear4)+(REAL gear5)+(REAL gearR)<=1.0001;
+              
+        dPWL4 -> dPWL3;
+        dPWL4 -> dPWL2;
+        dPWL4 -> dPWL1;
+        dPWL3 -> dPWL2;
+        dPWL3 -> dPWL1;
+        dPWL2 -> dPWL1;
+        
+        /* usebrakes -> ~usegas;
+           usegas -> ~usebrakes; */        
+        } 
+    }
+}

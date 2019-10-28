@@ -1,0 +1,90 @@
+/* Supply chain example
+ * A. Bemporad, 27/09/2005
+ */
+
+SYSTEM supply_chain{
+INTERFACE {
+/* Description of variables and constants */
+
+        STATE {
+                /* xij = material of type #j hold in inventory #i */
+                REAL x11   [0,10];  
+                REAL x12   [0,10];
+                REAL x21   [0,10];
+                REAL x22   [0,10];
+        }
+
+	INPUT {
+		/* uij = amount of material of type #j taken out of inventory #i */
+		REAL u11 [0,10]; 
+		REAL u12 [0,10];
+		REAL u21 [0,10];
+		REAL u22 [0,10];
+
+		/* UXij = 1 iff manufacturer #X sends product of type #j to inventory #i */
+		BOOL UA11,UA21,UB11,UB12,UB21,UB22,UC12,UC22;
+	}
+
+	OUTPUT {
+		REAL y1,y2;
+	}		
+
+	PARAMETER {
+		/* PXi = number of products of type #j that #X can produce in a time unit */
+		REAL PA1,PB1,PB2,PC2;
+		/* xMi = max capacity of inventory #i */
+		REAL xM1,xM2;
+	}
+}
+
+IMPLEMENTATION {
+	AUX {
+		REAL zA11, zB11, zB12, zC12, zA21, zB21, zB22, zC22;
+	}
+	
+	DA { 
+		zA11 = {IF UA11 THEN PA1 ELSE 0};
+		zB11 = {IF UB11 THEN PB1 ELSE 0};
+		zB12 = {IF UB12 THEN PB2 ELSE 0};
+		zC12 = {IF UC12 THEN PC2 ELSE 0};
+		zA21 = {IF UA21 THEN PA1 ELSE 0};
+		zB21 = {IF UB21 THEN PB1 ELSE 0};
+		zB22 = {IF UB22 THEN PB2 ELSE 0};
+		zC22 = {IF UC22 THEN PC2 ELSE 0};
+	}
+	
+        CONTINUOUS {
+                x11 = x11 + zA11 + zB11 - u11;
+                x12 = x12 + zB12 + zC12 - u12;
+                x21 = x21 + zA21 + zB21 - u21;
+                x22 = x22 + zB22 + zC22 - u22;
+        }
+        
+        OUTPUT {
+        	y1 = u11 + u21;
+        	y2 = u12 + u22;
+        }
+
+	MUST {
+		/* manufacturer #A cannot send product #1 to inventory #1 and #2 at the same time */
+		~(UA11 & UA21); 
+		/* manufacturer #C cannot send product #2 to inventory #1 and #2 at the same time */
+		~(UC12 & UC22); 
+		/* manufacturer #B either produces product #1 or product #2 (or nothing) */
+		~((UB11 | UB21) & (UB12 | UB22));		
+		/* manufacturer #B cannot send product #1 to inventory #1 and #2 at the same time */
+		~(UB11 & UB21); 
+		/* manufacturer #B cannot send product #2 to inventory #1 and #2 at the same time */
+		~(UB12 & UB22); 
+		
+		/* Maximum storage of products in inventory #1 */
+		x11+x12 <= xM1;	
+		x11+x12 >=0;
+
+		/* Maximum storage of products in inventory #2 */
+		x21+x22 <= xM2;	
+		x21+x22 >=0;
+		
+	}
+}
+}

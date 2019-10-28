@@ -1,0 +1,84 @@
+%(C) 2003 by A. Bemporad
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\newcommand{\ba}[1]{\begin{array}{#1}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\smallnum}[1]{\begin{smallmatrix}#1 \end{smallmatrix}}
+\newcommand{\smallmat}[1]{\left[ \begin{smallmatrix}#1 \end{smallmatrix} \right]}
+
+\textwidth 18cm
+\textheight 24cm
+\topmargin -1cm
+\oddsidemargin -2cm
+\renewcommand{\baselinestretch}{1.2}
+
+
+\begin{document}
+
+\title{\bf Piecewise Affine Controller Structure}
+
+\author{Author's Name}
+
+\maketitle
+
+The solution is
+\vspace{1cm}
+\[ 
+u(\theta) = \left\{\ba{lcll}
+\smallmat{ -3.905 &   2.485 & -0.9645 &   11.77}
+ \theta& \mbox{if} &  
+ \smallmat{ -1.953 &   1.243 & 0.01775 &   5.885\\ 
+  1.953 &  -1.243 & -0.01775 &  -5.885\\ 
+0.00794 &  0.0062 & -0.001082 &  0.3935\\ 
+-0.00794 & -0.0062 & 0.001082 & -0.3935} \theta \leq \smallmat{      1 & \\ 
+      1 & \\ 
+      1 & \\ 
+      1 & } \\
+ & &\ \mbox{(Region \#1)}\\ \\ 
+\smallmat{-8.882e-16 & 4.441e-16 &      -1 & 7.105e-15}
+ \theta-\smallnum{       2}& \mbox{if} &  
+ \smallmat{-0.2275 &  0.1547 & 0.00118 &   1.053\\ 
+-0.1047 & 0.07724 & -2.78e-14 &  0.7091} \theta \leq \smallmat{     -1 & \\ 
+     -1 & } \\
+ & &\ \mbox{(Region \#2)}\\ \\ 
+\smallmat{-8.882e-16 & 4.441e-16 &      -1 & 7.105e-15}
+ \theta+\smallnum{       2}& \mbox{if} &  
+ \smallmat{ 0.2275 & -0.1547 & -0.00118 &  -1.053\\ 
+ 0.1047 & -0.07724 & 2.78e-14 & -0.7091} \theta \leq \smallmat{     -1 & \\ 
+     -1 & } \\
+ & &\ \mbox{(Region \#3)}\\ \\ 
+\smallmat{-4.441e-16 &       0 &      -1 &       0}
+ \theta-\smallnum{       2}& \mbox{if} &  
+ \smallmat{ 0.1047 & -0.07724 & 2.783e-14 & -0.7091\\ 
+ -1.953 &   1.243 & 0.01775 &   5.885\\ 
+-0.2994 &  0.2036 & 0.001553 &   1.386} \theta \leq \smallmat{      1 & \\ 
+     -1 & \\ 
+      1 & } \\
+ & &\ \mbox{(Region \#4)}\\ \\ 
+\smallmat{-4.441e-16 &       0 &      -1 &       0}
+ \theta+\smallnum{       2}& \mbox{if} &  
+ \smallmat{-0.1047 & 0.07724 & -2.783e-14 &  0.7091\\ 
+  1.953 &  -1.243 & -0.01775 &  -5.885\\ 
+ 0.2994 & -0.2036 & -0.001553 &  -1.386} \theta \leq \smallmat{      1 & \\ 
+     -1 & \\ 
+      1 & } \\
+ & &\ \mbox{(Region \#5)}\\ \\ 
+\smallmat{ -3.789 &   2.576 & -0.9804 &   17.54}
+ \theta+\smallnum{   14.65}& \mbox{if} &  
+ \smallmat{-0.2994 &  0.2036 & 0.001553 &   1.386\\ 
+ 0.2275 & -0.1547 & -0.00118 &  -1.053\\ 
+0.00794 &  0.0062 & -0.001082 &  0.3935} \theta \leq \smallmat{     -1 & \\ 
+      1 & \\ 
+     -1 & } \\
+ & &\ \mbox{(Region \#6)}\\ \\ 
+\smallmat{ -3.789 &   2.576 & -0.9804 &   17.54}
+ \theta-\smallnum{   14.65}& \mbox{if} &  
+ \smallmat{-0.2275 &  0.1547 & 0.00118 &   1.053\\ 
+ 0.2994 & -0.2036 & -0.001553 &  -1.386\\ 
+-0.00794 & -0.0062 & 0.001082 & -0.3935} \theta \leq \smallmat{      1 & \\ 
+     -1 & \\ 
+     -1 & } \\
+ & &\ \mbox{(Region \#7)}\\ \\ 
+\ea\right.
+ \] 
+\end{document} 
