@@ -16,7 +16,7 @@ sample time ts = 0.5, which state space model is:
     
 the cost function is:
     J = min sum k from 0 to 9:(y(k+1) - r(t))^2 + 0.04*(delat_U(k))^2
-subject to: -0.2 <= delta_U(k) <= 0.2
+subject to: 0.8 <= U(k) <= 1.2 or no constraint
 '''
 
 A = np.array([[1.5968225, -0.8187308], [1.0, 0]])
@@ -85,28 +85,34 @@ Y_ref = np.ones([n, 1])
 x0 = np.array([[0.0], [0.0], [0.0]])
 state_x0 = []
 state_x1 = []
-state_x2 = []
 delta_U = np.zeros([nu, n])
 # x0_aug = np.vstack((x0,delta_U[0:nu,0]))
 U = np.zeros([nu,n])
 y_rel = []
 t = []
-for i in range(n):
-    t.append(i * ts)
 plot_U = []
-# print H
-# limit -0.2 <= delta_U <= 0.2
-A_ineq = np.eye(N)
-l = -0.2*np.ones([N,1])
-u = 0.2*np.ones([N,1])
 
+
+# limit 0.8 <= u(t) <= 1.2
+A_ineq = np.eye(N)
+for i in range(N):
+    for j in range(N):
+        if i > j:
+            A_ineq[i,j] = 1
+
+u_tmp = 0
 for i in range(n):
+    t.append(i*ts)
     r = Y_ref[i]*np.ones([ny*N, 1])
     P = sparse.csc_matrix(H)
     q = np.dot(F_tmp, (np.dot(CT_bar, x0) - r))
     W = sparse.csc_matrix(A_ineq)
-    
-    # print A_ineq
+    # l = float('-inf')*np.ones([N,1])
+    # u = float('inf')*np.ones([N,1])
+    l = 0.8*np.ones([N,1])
+    u = 1.2*np.ones([N,1])
+    l = l - u_tmp
+    u = u - u_tmp
     # Create an OSQP object
     prob = osqp.OSQP()
 
@@ -115,20 +121,21 @@ for i in range(n):
 
 	# Solve problem
     res = prob.solve()
-    print "res=",res.x
+    print res.x
     delta_U[0:nu,i] = res.x[0]
-
     if i == 0:
         U[0:nu,i] = delta_U[0:nu,i]
     else:
         U[0:nu,i] = U[0:nu,i-1] + delta_U[0:nu,i]
-    plot_U.append(float(U[0:nu,i]))
+    plot_U.append(u_tmp)
     x_tmp = np.dot(A,x0[0:2]) + np.dot(B,float(U[0:nu,i]))
-    x0 = np.dot(A_aug,x0) + np.dot(B_aug,float(delta_U[0:nu,i]))
-    y_rel.append(float(np.dot(C_aug,x0)))
+    x0[0] = x_tmp[0]
+    x0[1] = x_tmp[1]
+    x0[2] = float(U[0:nu,i])
+    y_rel.append(float(np.dot(C,x_tmp)))
     state_x0.append(x0[0])
     state_x1.append(x0[1])
-    state_x2.append(x0[2])
+    u_tmp = float(U[0:nu,i])
     pass
 
 ax1 = plt.subplot(2,1,1)
